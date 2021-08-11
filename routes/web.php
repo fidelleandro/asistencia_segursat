@@ -20,3 +20,10 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/reporte', [App\Http\Controllers\HomeController::class, 'reporte'])->name('reporte');
+Route::get('/get-personal', [App\Http\Controllers\HomeController::class, 'getPeople'])->name('getPeople');
+Route::get('/get-horarios', [App\Http\Controllers\HomeController::class, 'getSchedule'])->name('getSchedule');
