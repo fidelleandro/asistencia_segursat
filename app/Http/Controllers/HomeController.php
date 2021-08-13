@@ -37,12 +37,16 @@ class HomeController extends Controller
         $personal = $this->usermodel->getPeople();
         return view('reporte')->with(compact('departamentos','personal'));
     }
+    public function personReport()
+    {
+        return view('reporte2');
+    }
     public function getSchedule(){
       $f_ini  = $_GET['f_ini'];
       $f_fin  = $_GET['f_fin'];
       $area   = $_GET['area'];
       $user   = $_GET['people'];
-       
+
       $schedules = $this->usermodel->getSchedule($f_ini,$f_fin,$area,$user);
       echo json_encode($schedules); exit;
     }

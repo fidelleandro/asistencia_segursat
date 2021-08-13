@@ -1,7 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Reporte de asistencias</h1>
+      </div><!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Reporte</li>
+        </ol>
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /.container-fluid -->
+</div>
+<section class="content">
+  <div class="container-fluid">
     <div class="justify-content-center">
         <div class=" ">
             <div class="card">
@@ -95,8 +111,10 @@
                       f_fin = $("#filtro_fecha_fin").val();
                       area = $("#filtro_area").val();
                       people = $("#filtro_personal").val();
+                      //$('#reporte tbody').html('');
+                      $('#reporte').dataTable().fnClearTable();
                       $('#reporte').dataTable().fnDestroy();
-                      $('#reporte tbody').html('');
+
                       $.ajax({
                           type:"get",
                           dataType: "json",
@@ -105,14 +123,16 @@
                           beforeSend: function( xhr ) {
                           },
                           success: function(respuesta) {
-
                             for (var i = 0; i < respuesta.length; i++) {
+                              h_entrada = respuesta[i].h_entrada != null ? respuesta[i].h_entrada.substring(0,respuesta[i].h_entrada.toLocaleString().indexOf('.')) : '';
+                              h_salida  = respuesta[i].h_salida  != null ? respuesta[i].h_salida.substring(0,respuesta[i].h_salida.toLocaleString().indexOf('.')) : '';
+                              fecha     = respuesta[i].fecha.substring(0,respuesta[i].fecha.toLocaleString().indexOf('.'))
                               op = '<tr>';
                               op  += '<td>'+respuesta[i].name+'</td>';
                               op  += '<td>'+respuesta[i].area+'</td>';
-                              op  += '<td>'+respuesta[i].h_entrada+'</td>';
-                              op  += '<td>'+respuesta[i].h_salida+'</td>';
-                              op  += '<td>'+respuesta[i].fecha+'</td>';
+                              op  += '<td>'+h_entrada+'</td>';
+                              op  += '<td>'+h_salida+'</td>';
+                              op  += '<td>'+fecha+'</td>';
                               op  += '<td>'+respuesta[i].identificacion+'</td>';
                               op+= '</tr>';
                               $('#reporte tbody').append(op);
@@ -145,5 +165,6 @@
             </div>
         </div>
     </div>
-</div>
+  </div>
+</section>
 @endsection
