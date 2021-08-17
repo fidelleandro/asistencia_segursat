@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\UserModel;
+use Session;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -12,10 +14,19 @@ class HomeController extends Controller
      *
      * @return void
      */
+    public $menu_privs;
+
     public function __construct()
     {
         $this->usermodel = new UserModel;
         $this->middleware('auth');
+
+        $this->middleware(function ($request, $next) {
+          $data = $request->session()->all();
+          $this->menu_privs = $this->usermodel->getUserPrivileges($data['user_data']['id']);
+          //var_dump($this->menu_privs); exit;
+          return $next($request);
+        });  
     }
 
     /**

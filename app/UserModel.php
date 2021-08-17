@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserModel extends Model
 {
+  public function getUserPrivileges($id_user) {
+    $rows = DB::select(DB::raw("EXEC get_user_privileges $id_user"));
+    return $rows;
+  }
   public function getDepartaments() {
     $rows = DB::select(DB::raw("EXEC getDepartament"));
     return $rows;

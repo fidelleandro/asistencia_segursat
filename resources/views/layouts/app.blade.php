@@ -40,7 +40,6 @@
               <a href="{{ __('home') }}" class="nav-link">Dashboard</a>
             </li>
           </ul>
-
           <!-- Right navbar links -->
           <ul class="navbar-nav ml-auto">
             <!-- Navbar Search -->
@@ -161,6 +160,9 @@
                                document.getElementById('logout-form').submit();">
                   {{ __('Logout') }}
               </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                  @csrf
+              </form>
             </li>
             <li class="nav-item">
               <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
@@ -287,7 +289,7 @@
         </aside>
         <div class="content-wrapper">
           <!-- Content Header (Page header) -->
-              @yield('content') 
+              @yield('content')
         </div>
     </div>
     <div class="footer-wrapper">
@@ -308,6 +310,7 @@
     <!-- AdminLTE for demo purposes -->
     <script src="adminlte/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="adminlte/js/pages/dashboard.js"></script>
+
+    <!-- <script src="adminlte/js/pages/dashboard.js"></script> -->
 </body>
 </html>
