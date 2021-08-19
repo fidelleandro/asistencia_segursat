@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\UserModel;
 use Session;
 use Auth;
+use App\Helpers\Helper;
 
 class HomeController extends Controller
 {
@@ -23,9 +24,11 @@ class HomeController extends Controller
         $this->middleware('auth');
 
         $this->middleware(function ($request, $next) {
+          $html = '';
           $data = $request->session()->all();
           $this->menu_privs = $this->usermodel->getUserPrivileges($data['user_data']['id']);
-          $this->menu_privs_html = $this->privilegesMenu($this->menu_privs);
+          Helper::privilegesMenu($html,$this->menu_privs);
+          $this->menu_privs_html = $html;
           return $next($request);
         });
     }
