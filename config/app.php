@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-
+    'menu_priv' => '',
     'name' => env('APP_NAME', 'Sistema de asistencias'),
 
     /*

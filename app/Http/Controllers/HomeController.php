@@ -28,7 +28,8 @@ class HomeController extends Controller
           $data = $request->session()->all();
           $this->menu_privs = $this->usermodel->getUserPrivileges($data['user_data']['id']);
           Helper::privilegesMenu($html,$this->menu_privs);
-          $this->menu_privs_html = $html;
+          config(['app.menu_priv' => $html]);
+          //$this->menu_privs_html = $html;
           return $next($request);
         });
     }
@@ -39,7 +40,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    {
+    { 
         return view('home');
     }
     /**
