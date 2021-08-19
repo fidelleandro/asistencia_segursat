@@ -15,6 +15,7 @@ class HomeController extends Controller
      * @return void
      */
     public $menu_privs;
+    public $menu_privs_html;
 
     public function __construct()
     {
@@ -24,9 +25,9 @@ class HomeController extends Controller
         $this->middleware(function ($request, $next) {
           $data = $request->session()->all();
           $this->menu_privs = $this->usermodel->getUserPrivileges($data['user_data']['id']);
-          //var_dump($this->menu_privs); exit;
+          $this->menu_privs_html = $this->privilegesMenu($this->menu_privs);
           return $next($request);
-        });  
+        });
     }
 
     /**

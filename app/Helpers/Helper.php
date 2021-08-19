@@ -8,14 +8,29 @@ use Illuminate\Support\Str;
 class Helper
 {
   public static function privilegesMenu($array,$parent_id = 0) {
-    $data = array();
-    foreach ($array as $k => $v){
-        if($v['parent'] == $parent_id){
-            $child = $this->privilegesMenu($array,$v['parent']);            // Únete a la matriz
-            $v['child'] = $child?:array();
-            $data[] = $v;// Agregar a la matriz
+    $data = "";
+    foreach ($array as $k => $v) {
+        if($v['parent'] == $parent_id) {
+          if($v['parent'] == 0) {
+            $data.= '<li class="nav-item menu-open">';
+            $data.=   '<a href="{{ __('home') }}" class="nav-link active">';
+            $data.=     '<i class="fas fa-circle nav-icon"></i>';
+            $data.=     '<p>Reporte</p>';
+            $data.=   '</a>';
+            $data.= '</li>';
+          }
+          else {
+            $data.= '<li class="nav-item menu-open">';
+            $data.=   '<a href="{{ __('reporte') }}" class="nav-link active">';
+            $data.=     '<i class="fas fa-circle nav-icon"></i>';
+            $data.=     '<p>Reporte</p>';
+            $data.=   '</a>';
+            $data.= '</li>';
+          }
+          $this->privilegesMenu($array,$v['parent']);            // Únete a la matriz
         }
-    }    return $data;
+    }
+    return $data;
   }
   public static function html_tables($tables) {
     $op = '';
