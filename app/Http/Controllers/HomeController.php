@@ -22,7 +22,7 @@ class HomeController extends Controller
     {
         $this->usermodel = new UserModel;
         $this->middleware('auth');
-
+        //dump(url('/')); exit;
         $this->middleware(function ($request, $next) {
           $html = '';
           $data = $request->session()->all();
@@ -40,7 +40,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
-    { 
+    {
         return view('home');
     }
     /**

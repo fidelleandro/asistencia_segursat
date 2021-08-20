@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Sistema de asistencias') }}</title>
+    <title>Control de asistencias</title>
 
     <!-- Scripts -->
 
@@ -208,8 +208,8 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
 
-                <li class="nav-item ">
-                  <a href="{{ __('home') }}" class="nav-link ">
+                <li class="nav-item {{ Request::is('home') ? 'open-menu' : '' }}">
+                  <a href="{{ __('home') }}" class="nav-link {{ Request::is('home') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
                       Dashboard

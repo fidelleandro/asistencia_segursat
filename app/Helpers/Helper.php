@@ -8,20 +8,24 @@ use Illuminate\Support\Str;
 class Helper
 {
   public static function privilegesMenu(&$data,$array,$parent_id = 0) {
-      $array = Helper::object_to_array($array); 
+      $array = Helper::object_to_array($array);
       foreach ($array as $v) {
         if($v['parent'] == $parent_id) {
           if($v['parent'] == 0) {
-            $data.= '<li class="nav-item menu-open">';
-            $data.=   '<a href="home" class="nav-link active">';
+            $open = (trim($v['url']) == Helper::getUrl()) ? 'menu-open' : '';
+            $link = (trim($v['url']) == Helper::getUrl()) ? 'active' : '';
+            $data.= '<li class="nav-item '.$open.'">';
+            $data.=   '<a href="'.trim($v['url']).'" class="nav-link '.$link.'">';
             $data.=     '<i class="fas fa-circle nav-icon"></i>';
             $data.=     '<p>Reporte</p>';
             $data.=   '</a>';
             $data.= '</li>';
           }
           else {
-            $data.= '<li class="nav-item menu-open">';
-            $data.=   '<a href="reporte" class="nav-link active">';
+            $open = ($v['url'] == Helper::getUrl()) ? 'menu-open' : '';
+            $link = ($v['url'] == Helper::getUrl()) ? 'active' : '';
+            $data.= '<li class="nav-item '.$open.'">';
+            $data.=   '<a href="reporte" class="nav-link '.$link.'">';
             $data.=     '<i class="fas fa-circle nav-icon"></i>';
             $data.=     '<p>Reporte</p>';
             $data.=   '</a>';
@@ -32,7 +36,9 @@ class Helper
       }
     //return $data;
   }
-
+  public static function getUrl(){
+    return substr(url()->current(),strlen(url('/'))+1);
+  }
   public static function makeMenu($menu,$parent,&$arr) {
     foreach ($menu as $item) {
       if ($item['id'] == $parent) {
