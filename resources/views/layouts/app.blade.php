@@ -187,10 +187,9 @@
               </div>
               <div class="info">
                 @guest
-                <a href="#" class="d-block">{{ Auth::user()->name }}</a>
-
+                  <div class=""></div>
                 else
-                <div class=""></div>
+                  <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                 @endguest
               </div>
             </div>
