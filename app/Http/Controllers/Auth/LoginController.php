@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use \Illuminate\Http\Request;
 use Auth;
+use App\UserModel;
+use App\Helpers\Helper;
 
 class LoginController extends Controller
 {
@@ -47,11 +49,14 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            $this->usermodel = new UserModel;
+            $menu_privs = Helper::object_to_array($this->usermodel->getUserPrivileges($user->id)); 
             $request->session()->regenerate();
             $user =  \Auth::user();
             $data['id']     = $user->id;
             $data['name']   = $user->name;
             $data['email']  = $user->email;
+            $data['url_privs']  = $menu_privs;
             session(['user_data' => $data]);
             return redirect()->intended('home');
         }

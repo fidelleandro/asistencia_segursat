@@ -36,6 +36,16 @@ class Helper
       }
     //return $data;
   }
+  public static function searchPrivileges($data) {
+    if (is_array($data)) {
+      foreach ($data as $key => $value) {
+        if(trim($value['url']) === Helper::getUrl()){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
   public static function getUrl(){
     return substr(url()->current(),strlen(url('/'))+1);
   }
@@ -86,7 +96,6 @@ class Helper
     $arr = array_reverse($arr);
     return $arr;
   }
-
   public static function makeBreadcrumb($url) {
       $arr = Helper::arrayMakeBreadcrumb($url);
       $arr2 = array_reverse($arr);
@@ -99,7 +108,6 @@ class Helper
       }
       return array("title" => $arr2[0]['name'],"breadcrumb" => $html);
   }
-
   public static function object_to_array($obj) {
     if(is_object($obj) || is_array($obj)) {
         $ret = (array) $obj;

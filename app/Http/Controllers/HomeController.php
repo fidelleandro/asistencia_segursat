@@ -22,18 +22,26 @@ class HomeController extends Controller
     {
         $this->usermodel = new UserModel;
         $this->middleware('auth');
-        //dump(url('/')); exit;
+
         $this->middleware(function ($request, $next) {
-          $html = '';
+          $html = ''; $acceso = true;
           $data = $request->session()->all();
           if (isset($data['user_data'])) {
+            $url_privs = $data['user_data']['url_privs'];
+            if(Helper::getUrl() != 'home' && Helper::searchPrivileges($url_privs) == false)
+            {
+                $acceso = false;
+            }
+            if($acceso == false) {
+              return redirect('/home');
+            }
             $this->menu_privs = $this->usermodel->getUserPrivileges($data['user_data']['id']);
             Helper::privilegesMenu($html,$this->menu_privs);
             config(['app.menu_priv' => $html]);
           }
           //$this->menu_privs_html = $html;
           return $next($request);
-        });
+        }); 
     }
 
     /**
