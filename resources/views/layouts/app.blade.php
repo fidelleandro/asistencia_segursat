@@ -13,6 +13,7 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <!-- Fonts -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
@@ -192,7 +193,7 @@
                   <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                 @endguest
               </div>
-            </div> 
+            </div>
             <!-- SidebarSearch Form -->
             <div class="form-inline">
               <div class="input-group" data-widget="sidebar-search">
