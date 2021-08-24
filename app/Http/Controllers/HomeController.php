@@ -26,11 +26,12 @@ class HomeController extends Controller
         $this->middleware(function ($request, $next) {
           $html = '';
           $data = $request->session()->all();
+          dump($data);
           if ($data != null) {
             $this->menu_privs = $this->usermodel->getUserPrivileges($data['user_data']['id']);
             Helper::privilegesMenu($html,$this->menu_privs);
             config(['app.menu_priv' => $html]);
-          } 
+          }
           //$this->menu_privs_html = $html;
           return $next($request);
         });
