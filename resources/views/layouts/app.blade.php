@@ -3,20 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>Control de asistencias</title>
-
     <!-- Scripts -->
-
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <!-- Fonts -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
     <!-- Styles -->
     <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}" defer></script>
@@ -29,7 +24,7 @@
     <div class="wrapper">
       <!-- Preloader -->
         <div class="preloader flex-column justify-content-center align-items-center">
-          <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+          <img class="animation__shake" src="{{ asset('images/segursat2.png') }}" alt="Segursat asistencias" height="40" width="160">
         </div>
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
           <!-- Left navbar links -->
@@ -75,7 +70,7 @@
                 <a href="#" class="dropdown-item">
                   <!-- Message Start -->
                   <div class="media">
-                    <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                    <img src="{{ asset('images/user.png') }}" height="40px" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                     <div class="media-body">
                       <h3 class="dropdown-item-title">
                         Brad Diesel
@@ -184,7 +179,7 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
               <div class="image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('images/user.png') }}" class="img-circle elevation-2" alt="User Image">
               </div>
               <div class="info">
                 @guest
