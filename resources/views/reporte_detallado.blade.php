@@ -23,7 +23,6 @@
             <div class="card">
               <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet">
               <link href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css" rel="stylesheet">
-
               <form class="clearfix" action="index.html" method="post">
                 <div class="row">
                   <div class="col">
@@ -54,7 +53,7 @@
                   </div>
                   <div class="col">
                     <br>
-                    <button type="button" name="button" onclick="getSchedule()">
+                    <button type="button" name="button" onclick="getScheduleDetailed()">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -64,15 +63,15 @@
                 </div>
               </form>
               <hr>
-              <table id="reporte" class="display nowrap" style="width:100%">
+              <table id="reporte_detallado2" class="display nowrap" style="width:100%">
                 <thead>
                     <tr>
                         <th>Nombre</th>
                         <th>Area</th>
-                        <th>Horario ingreso</th>
-                        <th>Horario salida</th>
+                        <th>Fecha entrada</th>
+                        <th>Fecha salida</th>
+                        <th>Tiempo trabajado</th>
                         <th>Fecha</th>
-                        <th>Medio</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,7 +93,7 @@
                           //headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                           type:"get",
                           dataType: "json",
-                          url: 'get-personal',
+                          url: 'get-personal-detailed',
                           data: {type:type},
                           beforeSend: function( xhr ) {
                             $("#filtro_personal").prop("disabled",true);
@@ -108,51 +107,55 @@
                           }
                       });
                     }
-                    function getSchedule(){
+                    function getScheduleDetailed(){
                       f_ini   = $("#filtro_fecha_inicio").val();
                       f_fin   = $("#filtro_fecha_fin").val();
                       area    = $("#filtro_area").val();
                       people  = $("#filtro_personal").val();
-                      //$('#reporte tbody').html('');
-                      $('#reporte').dataTable().fnClearTable();
-                      $('#reporte').dataTable().fnDestroy();
+                      $('#reporte_detallado2 tbody').html('');
+                      $('#reporte_detallado2').dataTable().fnClearTable();
+                      $('#reporte_detallado2').dataTable().fnDestroy();
+
                       $.ajax({
                           type:"get",
                           dataType: "json",
-                          url: 'get-horarios',
+                          url: 'get-horarios-detail',
                           data: {f_ini:f_ini, f_fin:f_fin, area:area, people:people},
                           beforeSend: function( xhr ) {
                           },
-                          success: function(respuesta) {
-                            for (var i = 0; i < respuesta.length; i++) {
-                              h_entrada = respuesta[i].h_entrada != null ? respuesta[i].h_entrada.substring(0,respuesta[i].h_entrada.toLocaleString().indexOf('.')) : '';
-                              h_salida  = respuesta[i].h_salida  != null ? respuesta[i].h_salida.substring(0,respuesta[i].h_salida.toLocaleString().indexOf('.')) : '';
-                              fecha     = respuesta[i].fecha.substring(0,respuesta[i].fecha.toLocaleString().indexOf('.'))
-                              op = '<tr>';
-                              op  += '<td>'+respuesta[i].name+'</td>';
-                              op  += '<td>'+respuesta[i].area+'</td>';
-                              op  += '<td>'+h_entrada+'</td>';
-                              op  += '<td>'+h_salida+'</td>';
-                              op  += '<td>'+fecha+'</td>';
-                              op  += '<td>'+respuesta[i].identificacion+'</td>';
-                              op+= '</tr>';
-                              $('#reporte tbody').append(op);
+                          success: function(respuesta2) {
+                            console.log(respuesta2);
+                            var op2 = '';
+                            for (i = 0; i < respuesta2.length; i++) {
+                              h_entrada = respuesta2[i].fecha_entrada != null ? respuesta2[i].fecha_entrada.substring(0,respuesta2[i].fecha_entrada.toLocaleString().indexOf('.')) : '';
+                              h_salida  = respuesta2[i].fecha_salida  != null ? respuesta2[i].fecha_salida.substring(0,respuesta2[i].fecha_salida.toLocaleString().indexOf('.')) : '';
+                              tiempo    = respuesta2[i].Tiempo_trabajado;
+                              op2 = '<tr>';
+                              op2  += '<td>'+respuesta2[i].name+'</td>';
+                              op2  += '<td>'+respuesta2[i].area+'</td>';
+                              op2  += '<td>'+h_entrada+'</td>';
+                              op2  += '<td>'+h_salida+'</td>';
+                              op2  += '<td>'+tiempo+'</td>';
+                              op2  += '<td>...</td>';
+                              op2+= '</tr>';
+                              $('#reporte_detallado2 tbody').append(op2);
                             }
 
-                            $('#reporte').DataTable({
+                            $('#reporte_detallado2').DataTable({
                                 dom: 'Bfrtip',
                                 buttons: [
                                     'copy', 'csv', 'excel', 'pdf', 'print'
                                 ],
                                 "language": {
                                     "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
-                                }
+                                },
+                                responsive: true
                             });
                           }
                       });
                     }
                     $(document).ready(function() {
-                        $('#reporte').DataTable({
+                        $('#reporte_detallado2').DataTable({
                             dom: 'Bfrtip',
                             buttons: [
                                 'copy', 'csv', 'excel', 'pdf', 'print'

@@ -25,4 +25,10 @@ class UserModel extends Model
     $rows = DB::select(DB::raw($sql));
     return $rows;
   }
+  public function getScheduleDetailed($f_ini,$f_fin,$area,$user) {
+    $sql = "EXEC getDetailSchedule @fecha_ini='$f_ini',@fecha_fin='$f_fin',@area='$area',@userid ='$user'";
+    //echo $sql; exit;
+    $rows = DB::select(DB::raw($sql));
+    return $rows;
+  }
 }

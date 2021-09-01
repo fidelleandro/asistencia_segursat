@@ -41,7 +41,7 @@ class HomeController extends Controller
           }
           //$this->menu_privs_html = $html;
           return $next($request);
-        }); 
+        });
     }
 
     /**
@@ -49,8 +49,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
+    public function index() {
         return view('home');
     }
     /**
@@ -58,22 +57,33 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function reporte()
-    {   $departamentos = $this->usermodel->getDepartaments();
-        $personal = $this->usermodel->getPeople();
-        return view('reporte')->with(compact('departamentos','personal'));
+    public function reporte() {
+      $departamentos = $this->usermodel->getDepartaments();
+      $personal = $this->usermodel->getPeople();
+      return view('reporte')->with(compact('departamentos','personal'));
     }
-    public function personReport()
-    {
-        return view('reporte2');
+    public function reporteDetallado() {
+      $departamentos = $this->usermodel->getDepartaments();
+      $personal = $this->usermodel->getPeople();
+      return view('reporte_detallado')->with(compact('departamentos','personal'));
     }
-    public function getSchedule(){
+    public function personReport() {
+        return view('reporte_personal');
+    }
+    public function getSchedule() {
       $f_ini  = $_GET['f_ini'];
       $f_fin  = $_GET['f_fin'];
       $area   = $_GET['area'];
       $user   = $_GET['people'];
-
       $schedules = $this->usermodel->getSchedule($f_ini,$f_fin,$area,$user);
+      echo json_encode($schedules); exit;
+    }
+    public function getScheduleDetailed() {
+      $f_ini  = $_GET['f_ini'];
+      $f_fin  = $_GET['f_fin'];
+      $area   = $_GET['area'];
+      $user   = $_GET['people'];
+      $schedules = $this->usermodel->getScheduleDetailed($f_ini,$f_fin,$area,$user);
       echo json_encode($schedules); exit;
     }
     public function getPeople() {

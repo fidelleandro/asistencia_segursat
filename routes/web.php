@@ -25,10 +25,11 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('/reporte', [App\Http\Controllers\HomeController::class, 'reporte'])->name('reporte');
+Route::get('/reporte-detallado', [App\Http\Controllers\HomeController::class, 'reporteDetallado'])->name('reporteDetallado');
 Route::get('/mi-reporte', [App\Http\Controllers\HomeController::class, 'personReport'])->name('personReport');
 Route::get('/get-personal', [App\Http\Controllers\HomeController::class, 'getPeople'])->name('getPeople');
 Route::get('/get-horarios', [App\Http\Controllers\HomeController::class, 'getSchedule'])->name('getSchedule');
-
+Route::get('/get-horarios-detail', [App\Http\Controllers\HomeController::class, 'getScheduleDetailed'])->name('getScheduleDetailed');
 Auth::routes();
 /********************************************************************************************************************/
 Route::get('/crear-privilegios', [App\Http\Controllers\CreateController::class,'crear_priv'])->name('crear_priv');

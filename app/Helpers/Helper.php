@@ -11,26 +11,28 @@ class Helper
       $array = Helper::object_to_array($array);
       foreach ($array as $v) {
         if($v['parent'] == $parent_id) {
-          if($v['parent'] == 0) {
-            $open = (trim($v['url']) == Helper::getUrl()) ? 'menu-open' : '';
-            $link = (trim($v['url']) == Helper::getUrl()) ? 'active' : '';
-            $data.= '<li class="nav-item '.$open.'">';
-            $data.=   '<a href="'.trim($v['url']).'" class="nav-link '.$link.'">';
-            $data.=     '<i class="fas fa-circle nav-icon"></i>';
-            $data.=     '<p>Reporte</p>';
-            $data.=   '</a>';
-            $data.= '</li>';
-          }
-          else {
-            $open = ($v['url'] == Helper::getUrl()) ? 'menu-open' : '';
-            $link = ($v['url'] == Helper::getUrl()) ? 'active' : '';
-            $data.= '<li class="nav-item '.$open.'">';
-            $data.=   '<a href="reporte" class="nav-link '.$link.'">';
-            $data.=     '<i class="fas fa-circle nav-icon"></i>';
-            $data.=     '<p>Reporte</p>';
-            $data.=   '</a>';
-            $data.= '</li>';
-          }
+          if ($v['visible'] === '1') {
+            if($v['parent'] == 0) {
+              $open = (trim($v['url']) == Helper::getUrl()) ? 'menu-open' : '';
+              $link = (trim($v['url']) == Helper::getUrl()) ? 'active' : '';
+              $data.= '<li class="nav-item '.$open.'">';
+              $data.=   '<a href="'.trim($v['url']).'" class="nav-link '.$link.'">';
+              $data.=     '<i class="fas fa-circle nav-icon"></i>';
+              $data.=     '<p>'.$v['title'].'</p>';
+              $data.=   '</a>';
+              $data.= '</li>';
+            }
+            else {
+              $open = ($v['url'] == Helper::getUrl()) ? 'menu-open' : '';
+              $link = ($v['url'] == Helper::getUrl()) ? 'active' : '';
+              $data.= '<li class="nav-item '.$open.'">';
+              $data.=   '<a href="'.trim($v['url']).'" class="nav-link '.$link.'">';
+              $data.=     '<i class="fas fa-circle nav-icon"></i>';
+              $data.=     '<p>'.$v['title'].'</p>';
+              $data.=   '</a>';
+              $data.= '</li>';
+            }
+          } 
           $data.= Helper::privilegesMenu($data,$array,$v['id']);
         }
       }
